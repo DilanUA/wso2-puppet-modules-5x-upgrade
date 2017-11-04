@@ -20,4 +20,5 @@
 :backends:
     - yaml
 :yaml:
-    :datadir: "/etc/puppet/hieradata/%{::environment}"
+    :datadir: "/etc/puppetlabs/code/environments/%{::environment}/hieradata"
+    
