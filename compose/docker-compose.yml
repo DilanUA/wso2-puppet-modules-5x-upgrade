@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  puppet:
+    container_name: puppet
+    hostname: puppet
+    image: my-puppet-server:1.0.0
+    ports:
+      - 8140
+    volumes:
+      - ./puppet/ssl:/etc/puppetlabs/puppet/ssl/
+      - ./puppet/serverdata:/opt/puppetlabs/server/data/puppetserver/
+      - ./facts/facts.yaml:/etc/puppetlabs/facts.yaml
+      - ./puppet-conf/puppet.conf:/etc/puppetlabs/puppet/puppet.conf
+      - ./hiera-3/hiera.yaml:/etc/puppetlabs/puppet/hiera.yaml
+      - ./code:/etc/puppetlabs/code/
