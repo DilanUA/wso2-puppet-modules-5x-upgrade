@@ -69,7 +69,6 @@ class wso2am_runtime (
   $pack_filename          = $wso2am_runtime::params::pack_filename,
   $pack_extracted_dir     = $wso2am_runtime::params::pack_extracted_dir,
   $patches_dir            = $wso2am_runtime::params::patches_dir,
-  $service_name           = $wso2am_runtime::params::service_name,
   $service_template       = $wso2am_runtime::params::service_template,
   $ipaddress              = $wso2am_runtime::params::ipaddress,
   $enable_secure_vault    = $wso2am_runtime::params::enable_secure_vault,
@@ -83,8 +82,6 @@ class wso2am_runtime (
   # Templated configuration parameters
   $master_datasources     = $wso2am_runtime::params::master_datasources,
   $registry_mounts        = $wso2am_runtime::params::registry_mounts,
-  $hostname               = $wso2am_runtime::params::hostname,
-  $mgt_hostname           = $wso2am_runtime::params::mgt_hostname,
   $worker_node            = $wso2am_runtime::params::worker_node,
   $usermgt_datasource     = $wso2am_runtime::params::usermgt_datasource,
   $local_reg_datasource   = $wso2am_runtime::params::local_reg_datasource,
