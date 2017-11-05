@@ -47,7 +47,7 @@ class wso2base (
   $service_template,
   $ipaddress,
   $enable_secure_vault,
-  $secure_vault_configs,
+  # $secure_vault_configs,
   $key_stores,
   $carbon_home,
   $pack_file_abs_path
