@@ -34,6 +34,15 @@ Steps to run :
 7. Run below command to up puppet agent
 
     ```
-    docker run --volume <PATH-TO-GIT-REPO>/compose/mnt:/mnt --env FACTER_product_name=wso2am_runtime --env FACTER_product_version=2.1.0 --env FACTER_product_profile=default --env FACTER_environment=production --env FACTER_use_hieradata=true --env FACTER_platform=default --env FACTER_pattern=pattern-0 --env FACTER_vm_type=non-docker --net compose_default my-puppet-agent:1.0.0
+    docker run --volume <PATH-TO-GIT-REPO>/compose/mnt:/mnt 
+    --env FACTER_product_name=wso2am_runtime 
+    --env FACTER_product_version=2.1.0 
+    --env FACTER_product_profile=default 
+    --env FACTER_environment=production 
+    --env FACTER_use_hieradata=true 
+    --env FACTER_platform=default 
+    --env FACTER_pattern=pattern-0 
+    --env FACTER_vm_type=non-docker 
+    --net compose_default my-puppet-agent:1.0.0
     ```
     
