@@ -54,12 +54,13 @@ class wso2base::install {
   wso2base::clean_deployment {
     'clean_on_pack_change':
       pack_file_abs_path => $pack_file_abs_path,
-      caller_module_name => $caller_module_name,
+      callers_module_name => $caller_module_name,
       pack_filename      => $pack_filename,
       user               => $wso2_user,
       group              => $wso2_group,
       install_dir        => $install_dir,
-      pack_dir           => $pack_dir
+      pack_dir           => $pack_dir,
+      carbon_home        => $carbon_home
   }
 
   # download wso2 product pack zip archive
