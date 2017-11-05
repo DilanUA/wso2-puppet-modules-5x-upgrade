@@ -34,6 +34,7 @@ class wso2base::system {
   $java_prefs_user_root   = $wso2base::java_prefs_user_root
   $startup_script_name    = $wso2base::startup_script_name
   $pid_file_path          = $wso2base::pid_file_path
+  $carbon_home            = $wso2base::carbon_home
 
   # Install system packages
   package { $packages:
@@ -41,7 +42,7 @@ class wso2base::system {
   }
 
   group { $wso2_group:
-    ensure => 'present',
+    ensure => present,
     gid    => '502',
   }
 
