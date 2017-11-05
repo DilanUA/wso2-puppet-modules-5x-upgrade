@@ -29,7 +29,12 @@ Steps to run :
     docker build -t my-puppet-server:1.0.0 .
     ```
     
-6. Run docker-compose up to run puppet server
+6. Start puppet server
+
+    ```
+    cd compose
+    docker-compose up
+    ```
 
 7. Run below command to up puppet agent
 
