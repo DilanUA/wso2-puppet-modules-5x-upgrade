@@ -32,7 +32,7 @@ define wso2base::clean_deployment ($pack_file_abs_path, $callers_module_name, $p
       provider       => shell,
       command        => "if [ -f '${carbon_home}/wso2carbon.pid']; then kill -9 'cat ${carbon_home}/wso2carbon.pid'; fi && wait && rm -rf ${pack_dir}/* ${carbon_home}",
       path           => ['/usr/bin', '/usr/sbin', '/bin'],
-      onlyif         => "test `diff -q ${pack_file_abs_path} ${temp_pack_file_abs_path} >/dev/null; echo $?` -eq 1",
+      onlyif         => "test 'diff -q ${pack_file_abs_path} ${temp_pack_file_abs_path} >/dev/null; echo $?' -eq 1",
       refreshonly    => true,
       notify         => Exec['clean_temp_pack']
     }
