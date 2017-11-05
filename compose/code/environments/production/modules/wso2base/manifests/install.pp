@@ -84,7 +84,7 @@ class wso2base::install {
         ensure         => present,
         owner          => $wso2_user,
         group          => $wso2_group,
-        mode           => 755,
+        mode           => '0755',
         source         => [
           "puppet:///modules/${caller_module_name}/${pack_filename}",
           "puppet:///files/packs/${pack_filename}"
