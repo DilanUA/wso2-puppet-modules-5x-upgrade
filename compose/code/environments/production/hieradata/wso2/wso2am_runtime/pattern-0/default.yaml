@@ -16,12 +16,12 @@
 classes:
   - wso2am_runtime
 
-wso2::template_list:
-  - repository/conf/datasources/am-datasources.xml
-  - repository/conf/api-manager.xml
-  - repository/conf/identity/identity.xml
-  - repository/conf/identity/application-authentication.xml
-  - repository/conf/identity/EndpointConfig.properties
+#wso2::template_list:
+#  - repository/conf/datasources/am-datasources.xml
+#  - repository/conf/api-manager.xml
+#  - repository/conf/identity/identity.xml
+#  - repository/conf/identity/application-authentication.xml
+#  - repository/conf/identity/EndpointConfig.properties
 #  - bin/ciphertool.sh
 
 # File list to be copied to the product folder, if there are changes found in the files, the system

@@ -1,0 +1,167 @@
+# ------------------------------------------------------------------------------
+#
+# Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+#
+# WSO2 Inc. licenses this file to you under the Apache License,
+# Version 2.0 (the "License"); you may not use this file except
+# in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+# ------------------------------------------------------------------------------
+
+#!/bin/bash
+#
+# /etc/init.d/as
+# chkconfig:         2345 90 10
+# description:       wso2 service init script.
+# Provides:          wso2 Inc
+# Required-Start:    $syslog
+# Should-Start:
+# Required-Stop:     $syslog
+# Should-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description:  wso2 service #
+# Get function from functions library
+
+if [ -f /etc/init.d/functions ]; then
+    . /etc/init.d/functions
+else
+    . /lib/lsb/init-functions
+fi
+
+#set the configuration settings for the service
+USER="<%= @wso2_user %>"
+PRODUCT_CODE="<%= @service_name %>"
+JAVA_HOME="<%= @java_home %>"
+CARBON_HOME="<%= @carbon_home %>"
+LOCK_FILE="${CARBON_HOME}/wso2carbon.lck"
+PID_FILE="${CARBON_HOME}/<%= @pid_file_path %>"
+CMD="${CARBON_HOME}/bin/<%= @startup_script_name %>"
+
+SERVICE_RUNNING=0
+SERVICE_STOPPED=3
+SERVICE_STATUS_UNKNOWN=4
+
+get_service_status() {
+    if [ -e ${PID_FILE} ]; then
+        PID=`cat ${PID_FILE}`
+        if  ps -p ${PID} > /dev/null ; then
+            # service is running
+            return ${SERVICE_RUNNING}
+        else
+            # service is stopped
+            return ${SERVICE_STOPPED}
+        fi
+    else
+        # pid file was not found, may be service was not started before.
+        return ${SERVICE_STATUS_UNKNOWN}
+    fi
+}
+
+#Get the status details of the service
+status() {
+    get_service_status
+    service_status=$?
+
+    if [ ${service_status} -eq ${SERVICE_RUNNING} ]; then
+        echo "${PRODUCT_CODE} service is currently running..."
+        return ${SERVICE_RUNNING}
+    elif [ ${service_status} -eq ${SERVICE_STOPPED} ]; then
+        echo "${PRODUCT_CODE} service has been already stopped."
+        return ${SERVICE_STOPPED}
+    else
+        echo "${PRODUCT_CODE} service status is currently unknown. Please check in a while."
+        return ${SERVICE_STATUS_UNKNOWN}
+    fi
+}
+
+#Start the service
+start() {
+    get_service_status
+    service_status=$?
+
+    if [ ${service_status} -eq ${SERVICE_RUNNING} ]; then
+        echo "${PRODUCT_CODE} service has been already running..."
+        return ${SERVICE_RUNNING}
+    fi
+
+    echo "Starting ${PRODUCT_CODE} service..."
+    touch $LOCK_FILE
+    su - ${USER} -c "export JAVA_HOME=${JAVA_HOME}; ${CMD} start > /dev/null 2>&1 &"
+
+    get_service_status
+    service_status=$?
+
+    while [ ${service_status} -ne ${SERVICE_RUNNING} ]
+    do
+        sleep 1;
+        get_service_status
+        service_status=$?
+    done
+
+    echo "${PRODUCT_CODE} service has been just started..."
+    return ${SERVICE_RUNNING}
+}
+
+#Restart the service
+restart() {
+    echo "Restarting ${PRODUCT_CODE} service..."
+    touch $LOCK_FILE
+    su - ${USER} -c "export JAVA_HOME=${JAVA_HOME}; $CMD restart > /dev/null 2>&1 &"
+    return ${SERVICE_RUNNING}
+}
+
+#Stop the service
+stop() {
+    get_service_status
+    service_status=$?
+
+    if [ ${service_status} -eq ${SERVICE_STOPPED} ]; then
+        echo "${PRODUCT_CODE} service has been already stopped."
+        return ${SERVICE_STOPPED}
+    fi
+
+    echo "Stopping ${PRODUCT_CODE} service..."
+    su - ${USER} -c "export JAVA_HOME=${JAVA_HOME}; $CMD stop > /dev/null 2>&1 &"
+    rm -f $LOCK_FILE
+
+    while [ ${service_status} -eq ${SERVICE_RUNNING} ]
+    do
+        sleep 1;
+        get_service_status
+        service_status=$?
+    done
+
+    echo "${PRODUCT_CODE} service has been stopped."
+    return ${SERVICE_STOPPED}
+}
+
+###Main logic of the service###
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status
+        ;;
+    restart|reload|condrestart)
+        restart
+        ;;
+*)
+echo  $"Usage: $0 {start|stop|status|restart|reload}"
+exit 1
+esac
+exit $?

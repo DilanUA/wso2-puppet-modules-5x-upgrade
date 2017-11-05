@@ -53,7 +53,7 @@ class wso2am_runtime::params {
 
     # system configuration data
     $packages                 = hiera_array('packages')
-    $template_list            = hiera_array('wso2::template_list')
+    $template_list            = hiera_array('wso2::template_list', undef)
     $file_list                = hiera_array('wso2::file_list', undef)
     $remove_file_list         = hiera_array('wso2::remove_file_list', undef)
     $patch_list               = hiera('wso2::patch_list', undef)

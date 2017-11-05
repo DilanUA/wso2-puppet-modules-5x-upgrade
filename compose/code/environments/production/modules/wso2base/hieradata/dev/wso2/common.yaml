@@ -46,15 +46,15 @@ wso2::pid_file_path: wso2carbon.pid
 wso2::autostart_service: true
 
 # Puppet template list to be populated
-#wso2::template_list:
-#  - repository/conf/carbon.xml
-#  - repository/conf/user-mgt.xml
-#  - repository/conf/registry.xml
-#  - repository/conf/datasources/master-datasources.xml
-#  - repository/conf/tomcat/catalina-server.xml
-#  - repository/conf/axis2/axis2.xml
-#  - repository/conf/security/authenticators.xml
-#  - bin/wso2server.sh
+wso2::template_list:
+  - repository/conf/carbon.xml
+  - repository/conf/user-mgt.xml
+  - repository/conf/registry.xml
+  - repository/conf/datasources/master-datasources.xml
+  - repository/conf/tomcat/catalina-server.xml
+  - repository/conf/axis2/axis2.xml
+  - repository/conf/security/authenticators.xml
+  - bin/wso2server.sh
 #  - bin/ciphertool.sh
 
 # File list to be copied to the product folder, if there are changes found in the files, the system
