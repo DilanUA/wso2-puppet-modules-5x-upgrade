@@ -16,8 +16,8 @@
 classes:
   - wso2am_runtime
 
-#wso2::template_list:
-#  - repository/conf/datasources/am-datasources.xml
+wso2::template_list:
+  - repository/conf/datasources/am-datasources.xml
 #  - repository/conf/api-manager.xml
 #  - repository/conf/identity/identity.xml
 #  - repository/conf/identity/application-authentication.xml

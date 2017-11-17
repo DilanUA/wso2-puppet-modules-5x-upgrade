@@ -22,7 +22,7 @@
     </providers>
 
     <datasources>
-<%- @am_datasources.each do |datasource_name, datasource| -%>
+<%- scope['wso2am_runtime::am_datasources'].each do |datasource_name, datasource| -%>
         <datasource>
             <name><%= datasource['name'] %></name>
             <description><%= datasource['description'] %></description>
