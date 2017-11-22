@@ -22,7 +22,7 @@ class wso2am_runtime::params {
   $fqdn                       = $::fqdn
 
   # use_hieradata facter flags whether parameter lookup should be done via Hiera
-  if $::use_hieradata == 'true' {
+  if str2bool("$::use_hieradata") {
 
     $is_datasource            = hiera('wso2::is_datasource')
     $am_datasource            = hiera('wso2::am_datasource')

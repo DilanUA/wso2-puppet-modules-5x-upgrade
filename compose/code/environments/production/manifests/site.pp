@@ -18,7 +18,7 @@
 
 # Default node definition
 node "default" {
-  if $::use_hieradata == "true" {
+  if str2bool("$::use_hieradata") {
     hiera_include('classes')
 
   } else {
